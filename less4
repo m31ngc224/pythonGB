@@ -1,0 +1,77 @@
+print('№ 1')
+
+
+def calc():
+    x = float(input('Введите количество отработанных часов : '))
+    y = float(input('Введите суммы оплаты труда за 1 час : '))
+    c = float(input('Укажите размер премии: '))
+    pay = x * y
+    return pay + c
+
+
+print(f'Размер заработной платы составил: {calc()}')
+
+print('№ 2')
+import random
+
+list1 = random.sample(range(1, 100), 10)
+print(list1)
+list2 = []
+for el in range(len(list1) - 1):
+    if list1[el] < list1[el + 1]:
+        list2.append(list1[el + 1])
+print(list2)
+
+print('№ 3')
+list = [i for i in range(20, 240) if i % 20 == 0 or i % 21 == 0]
+print("Список чисел кратных 20 или 21 в диапазоне [20..240): ", list)
+
+print('№ 4')
+import random
+
+list1 = []
+n = 10
+for i in range(n):
+    list1.append(random.randint(1, 9))
+print("Исходные элементы списка:\n", list1)
+list2 = [i for i in list1 if list1.count(i) == 1]
+print("Элементы списка, не имеющие повторений:\n", list2)
+
+print('№ 5')
+from functools import reduce
+
+list = [i for i in range(100, 1001, 2)]
+print("Список чётных чисел в диапазоне [100..1000]:\n", list)
+print("Произведение всех элементов списка:\n", reduce(lambda x, y: x * y, list))
+
+print('№ 6')
+from itertools import count, cycle
+
+print("Итератор, генерирующий целые числа, начиная с указанного:")
+for item in count(3):
+    if item > 10:
+        break
+    else:
+        print(item)
+
+print("\n Итератор, повторяющий элементы некоторого списка, определенного заранее:")
+i = 0
+for value in cycle([1, 2, 3]):
+    if i > 3:
+        break
+    print(value)
+    i += 1
+
+print('№ 7')
+from math import factorial
+
+
+def factorial_gen(n):
+    for i in range(n):
+        print(i, end='! = ')
+        yield factorial(i)
+
+
+print("Программа вычисления факториала числа")
+for el in factorial_gen(15):
+    print(el)
