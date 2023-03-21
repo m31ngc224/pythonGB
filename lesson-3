@@ -1,0 +1,91 @@
+print('№ 1')
+
+
+def div(*divs):
+    try:
+        div1 = int(input('Введите делимое: '))
+        div2 = int(input('Введите делитель: '))
+        res = div1 / div2
+    except ValueError:
+        return 'Value error'
+    except ZeroDivisionError:
+        return 'На ноль делить нельзя'
+
+    return res
+
+
+print(f'Итогом:  {div()}')
+
+print('№ 2')
+
+
+def personal_data(name, lastname, year_of_birth, city, email, phone):
+    return print(
+        f'Имя: {name} Фамилия: {lastname} Год рождения: {year_of_birth} Город проживания: {city} Email: {email} Телефон: {phone}')
+
+
+personal_data(
+    name=input('Имя: '),
+    lastname=input('Фамилия: '),
+    year_of_birth=input('Год Рождения: '),
+    city=input('Город проживания: '),
+    email=input('email: '),
+    phone=input('phone: '),
+)
+
+print('№ 3')
+
+
+def my_func(var1, var2, var3):
+    print(f'Сумма двух наибольших значений равна: {var1 + var2 + var3 - min([var1, var2, var3])}')
+
+
+my_func(
+    int(input('Значение 1: ')),
+    int(input('Значение 2: ')),
+    int(input('Значение 3: ')),
+)
+
+print('№ 4')
+
+
+def my_func(x, y):
+    return (x ** y)
+
+
+print(my_func(float(input('Введите основание: ')), int(input('Введите степень: '))))
+
+print('№ 5')
+
+
+def calc_sum(*nums):
+    sum = 0
+    symbol = False
+    for num in nums:
+        try:
+            if num:
+                sum += float(num)
+        except ValueError:
+            symbol = True
+    return sum, symbol
+
+
+general_sum = 0
+
+while True:
+    numbers_string = input('Введите числа через пробел: ').split(' ')
+    sum, stop_symbol = calc_sum(*numbers_string)
+    general_sum += sum
+    print(f'сумма {general_sum}')
+
+    if stop_symbol:
+        break
+
+print('№ 6')
+
+
+def int_func(text):
+    return text.title()
+
+
+print(int_func(input('Введите текст через пробел:')))
