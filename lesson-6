@@ -1,0 +1,228 @@
+print('№1')
+import time
+
+
+class TrafficLight():
+    red_color_wait = 7
+    yellow_color_wait = 2
+    green_color_wait = 7
+    red_color_name = 'красный'
+    yellow_color_name = 'желтый'
+    green_color_name = 'зеленый'
+
+    def __init__(self, color):
+        self.__color = color
+        print(f'\nСоздан новый объект TrafficLight со стартовым цветом {self.__color}')
+
+    def switch_light(self, color, wait_period):
+        self.wait_period = wait_period
+        print(f'Включен {color} свет, время ожидания {self.wait_period} сек')
+        time.sleep(self.wait_period)
+
+    def running(self, color=''):
+        if not color:
+            loc_color = self.__color
+        else:
+            loc_color = color
+
+        if loc_color == self.red_color_name:
+            self.switch_light('красный', self.red_color_wait)
+            self.switch_light('желтый', self.yellow_color_wait)
+            self.switch_light('зеленый', self.green_color_wait)
+        elif loc_color == self.yellow_color_name:
+            self.switch_light('желтый', self.yellow_color_wait)
+            self.switch_light('зеленый', self.green_color_wait)
+        else:
+            self.switch_light('зеленый', self.green_color_wait)
+
+        print('Цикл переключения цветов завершен')
+
+
+tl1 = TrafficLight('красный')
+tl1.running()
+
+tl2 = TrafficLight('желтый')
+tl2.running()
+
+tl3 = TrafficLight('зеленый')
+tl3.running()
+
+tl1 = TrafficLight('красный')
+tl1.running('желтый')
+
+print('№2')
+class Road():
+    __weight = 0.5
+
+    def __init__(self, length, width):
+        self._length = length
+        self._width = width
+        print(f'Создан новый объект класса Road длиной {self._length} метров и шириной {self._width} метров')
+
+    def get_weight(self, thickness):
+        ret_val = self._length * self._width * thickness * self.__weight
+        print(f'Вес асфальта, требуемый для укладки полотна толщиной {thickness} см, равен {ret_val} т')
+
+        return ret_val
+
+
+r1 = Road(100, 5)
+w1 = r1.get_weight(10)
+
+r2 = Road(1000, 20)
+w2 = r2.get_weight(20)
+
+print(f'Суммарный вес асфальта для двух объектов = {w1 + w2}')
+
+print('№3')
+class Worker:
+    def __init__(self, name: str, surname: str, position: str, wage: int, bonus: int):
+        self.name = name
+        self.surname = surname
+        self.position = position
+        self._income = {'wage': wage, 'bonus': bonus}
+
+
+class Position(Worker):
+    def get_full_name(self):
+        return f"{self.name} {self.surname}"
+
+    def get_total_income(self):
+        return sum(self._income.values())
+
+
+vasya = Position('Алексей', 'GB', 'Студент', 1000, 500)
+print(vasya.get_full_name())
+print(vasya.position)
+print(vasya.get_total_income())
+
+print('№4')
+class Car():
+
+    def __init__(self, max_speed, color, name, is_police):
+        self.max_speed = max_speed
+        self.color = color
+        self.name = name
+        self.is_police = is_police
+        print(f'Создан новый автомобиль {name}, цвет {color}')
+
+    def show_speed(self, speed):
+        self.speed = speed
+        print(f'Скорость движения {self.speed} км/ч')
+        if self.speed  > self.max_speed and not self.is_police:
+            print('Внимание! Превышение допустимой скорости!')
+
+    def go(self):
+        print(f'{self.name} начала движение')
+
+    def stop(self):
+        print(f'{self.name} остановилась')
+
+    def turn(self, direction):
+        print(f'{self.name} повернула {direction}')
+
+class TownCar(Car):
+
+    def __init__(self, speed, color, name, is_police):
+        super().__init__(speed, color, name, is_police)
+        print(f'Это семейный автомобиль')
+
+    def show_speed(self, speed):
+        self.speed = speed
+        super().show_speed(self.speed)
+
+
+class SportCar(Car):
+
+    def __init__(self, speed, color, name, is_police):
+        super().__init__(speed, color, name, is_police)
+        print(f'Это спортивный автомобиль')
+
+
+class WorkCar(Car):
+
+    def __init__(self, speed, color, name, is_police):
+        super().__init__(speed, color, name, is_police)
+        print(f'Это служебный автомобиль')
+
+    def show_speed(self, speed):
+        # В данном контексте этот метод здесь не нужен, обработка превышения скорости производится
+        # в родительском классе
+        self.speed = speed
+        super().show_speed(self.speed)
+
+class PoliceCar(Car):
+    def __init__(self, speed, color, name, is_police):
+        super().__init__(speed, color, name, is_police)
+        print(f'Это полицейский автомобиль')
+
+
+my_family_car = TownCar(60, 'черный', 'Vesta', False)
+my_family_car.go()
+my_family_car.show_speed(40)
+my_family_car.show_speed(50)
+my_family_car.show_speed(60)
+my_family_car.turn('направо')
+my_family_car.turn('налево')
+my_family_car.stop()
+print()
+
+my_work_car = WorkCar(60, 'серый', 'Barguzin', False)
+my_work_car.go()
+my_work_car.show_speed(40)
+my_work_car.stop()
+print()
+
+police_car = PoliceCar(0, 'белый', 'Kia Rio', True)
+print()
+
+sport_car = SportCar(60, 'черный', 'Moskvich3', False)
+sport_car.go()
+sport_car.show_speed(60)
+sport_car.show_speed(70)
+police_car.go()
+police_car.show_speed(80)
+police_car.turn('налево')
+police_car.turn('направо')
+police_car.stop()
+sport_car.stop()
+
+print('№5')
+class Stationery:
+    title = "\n<< Канцелярская принадлежность >>"
+
+    def draw(self):
+        print("Родительский метод класса Stationery")
+        print("Запуск отрисовки")
+
+
+class Pen(Stationery):
+    def draw(self):
+        print("\nРодительский метод класса Pen")
+        print("Запуск отрисовки ручкой")
+
+
+class Pencil(Stationery):
+    def draw(self):
+        print("\nРодительский метод класса Pencil")
+        print("Запуск отрисовки карандашом")
+
+
+class Handle(Stationery):
+    def draw(self):
+        print("\nРодительский метод класса Handle")
+        print("Запуск отрисовки маркером")
+
+
+s = Stationery()
+print(s.title)
+s.draw()
+
+p_1 = Pen()
+p_1.draw()
+
+p_2 = Pencil()
+p_2.draw()
+
+h = Handle()
+h.draw()
